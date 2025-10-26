@@ -1,9 +1,8 @@
 # Certificadora 3
-Repositório para desenvolvimento do projeto de software da disciplina Certificadora 3.
+Repositório para desenvolvimento do projeto da disciplina Certificadora 3, do curso de Engenharia de Computação - UTFPR Cornélio Procópio.
 
 # 🌸Gerenciador de Banco de Ideias (GBI)
 
-Repositório para desenvolvimento do projeto da disciplina Certificadora 3, do curso de Engenharia de Computação - UTFPR Cornélio Procópio.
 O GBI (Gerenciador de Banco de Ideias) é um sistema desenvolvido para o projeto **Meninas Digitais da UTFPR-CP**, com o objetivo de permitir o gerenciamento de ideias propostas por membros, voluntários e administradores da equipe, promovendo a colaboração e a organização das iniciativas internas.
 
 ---
@@ -12,9 +11,13 @@ O GBI (Gerenciador de Banco de Ideias) é um sistema desenvolvido para o projeto
 
 **Grupo 7**
 **Integrantes:**
+
 Felipe de Oliveira Guimarães Bataglini | RA: 2475421
+
 Leonardo dos Santos Correia | RA: 2475499
+
 Matheus Martins Damaceno | RA: 2475510
+
 Stefano Calheiros Stringhini | RA: 2312123
 
 ---
