@@ -47,8 +47,8 @@ Padrão MVC (Model-View-Controller) aplicado parcialmente
 **Observação importante:** As ferramentas abaixo e seus respectivos links para download são referentes a um host com sistema Windows. Para sistemas operacionais Linux basta utilizar os meios próprios de instalação, desde que seja respeitado a versão recomendada abaixo.
 
 ### 💻 Desenvolvimento e Execução
-- **Apache NetBeans IDE 27**
-  - Download: [Apache NetBeans 27](https://archive.apache.org/dist/netbeans/netbeans-installers/25/Apache-NetBeans-25-bin-windows-x64.exe)
+- **Apache NetBeans IDE 25**
+  - Download: [Apache NetBeans 25](https://archive.apache.org/dist/netbeans/netbeans-installers/25/Apache-NetBeans-25-bin-windows-x64.exe)
 - **Java Development Kit (JDK) 25**
   - Download: [Java JDK 25](https://download.oracle.com/java/25/latest/jdk-25_windows-x64_bin.msi)
 - **Apache Maven 3.9.8** (gerenciador de build)
@@ -57,10 +57,3 @@ Padrão MVC (Model-View-Controller) aplicado parcialmente
 ### 🗄️ Banco de Dados
 - **MySQL 8.0**
   - Download: [MySQL Community Edition v8.0.44](https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-8.0.44.0.msi)
-- Ferramenta de conexão: **MySQL Workbench**
-  - Download: https://dev.mysql.com/downloads/workbench/
-
----
-
-### ⚙️ Roteiro de Instalação e Execução
-
