@@ -20,12 +20,12 @@ public class GerenciadorIdeia implements ActionListener {
     private String autorLogado;
     
     public GerenciadorIdeia() {
-    // construtor vazio para o MenuVoluntario
-    this.listaIdeias = new ArrayList<>();
+        // construtor vazio para o MenuVoluntario
+        this.listaIdeias = new ArrayList<>();
     }
 
     public GerenciadorIdeia(GUIIdeia gui, String autorLogado) {
-        this.gui = gui;
+        this.gui = new GUIIdeia();
         this.autorLogado = autorLogado;
         this.listaIdeias = new ArrayList<>();
         gui.addListener(this);
