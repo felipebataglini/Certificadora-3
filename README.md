@@ -1,9 +1,9 @@
 # Certificadora 3
 Repositório para desenvolvimento do projeto da disciplina Certificadora 3, do curso de Engenharia de Computação - UTFPR Cornélio Procópio.
 
-# 🌸Gerenciador de Banco de Ideias (GBI)
+# 🌸MeninasDigitaisIdeasManagement (MDIM)
 
-O GBI (Gerenciador de Banco de Ideias) é um sistema desenvolvido para o projeto **Meninas Digitais da UTFPR-CP**, com o objetivo de permitir o gerenciamento de ideias propostas por membros, voluntários e administradores da equipe, promovendo a colaboração e a organização das iniciativas internas.
+O MDIM (MeninasDigitaisIdeasManagement) é um sistema desenvolvido para o projeto **Meninas Digitais da UTFPR-CP**, com o objetivo de permitir o gerenciamento de ideias propostas por membros, voluntários e administradores da equipe, promovendo a colaboração e a organização das iniciativas internas.
 
 ---
 
@@ -24,7 +24,7 @@ Stefano Calheiros Stringhini | RA: 2312123
 
 ## 🎯 Objetivo do Sistema
 
-O **Gerenciador de Banco de Ideias** (GBI) tem como propósito oferecer uma plataforma simples e eficiente para:
+O **MeninasDigitaisIdeasManagement** (MDIM) tem como propósito oferecer uma plataforma simples e eficiente para:
 - Cadastrar e gerenciar ideias enviadas por usuários;
 - Permitir que usuários autenticados (membros e voluntários) possam sugerir e apoiar ideias;
 - Permitir que administradores aprovem ou reprovem ideias;
@@ -57,3 +57,19 @@ Padrão MVC (Model-View-Controller) aplicado parcialmente
 ### 🗄️ Banco de Dados
 - **MySQL 8.0**
   - Download: [MySQL Community Edition v8.0.44](https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-8.0.44.0.msi)
+---
+
+## Como testar?
+Para testar o software basta seguir os passos mostrados no vídeo de instalação e execução do sistema abaixo:
+[Instalação e execução do sistema](https://youtu.be/aDIrhQFYlqg)
+
+### Usuários padrão
+#### Administrador
+Usuário: 1 / Senha: administrador
+#### Voluntário
+Usuário: 10 / Senha: voluntario
+#### Externo
+Usuário: 100 / Senha: externo
+
+## Disclaimer
+Esse projeto se trata de uma versão parcial que ainda está em desenvolvimento, em caso de mal funcionamento ou bugs na execução, aguarde atualização para a entrega do projeto final.
