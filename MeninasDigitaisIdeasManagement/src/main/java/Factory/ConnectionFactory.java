@@ -12,9 +12,9 @@ import javax.swing.JOptionPane;
  * @author Felipe
  */
 public class ConnectionFactory {
-    private String url = "jdbc:mysql://localhost:3306/mdim";
+    private String url = "jdbc:mysql://mysql.febataglini.duckdns.org/mdim";
     private String user = "root";
-    private String password = "root";
+    private String password = "#D;!4}1U3Wze";
     
     public Connection getConnection() {
         try {
