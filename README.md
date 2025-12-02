@@ -32,7 +32,7 @@ O **MeninasDigitaisIdeasManagement** (MDIM) tem como propósito oferecer uma pla
 
 ---
 
-## ✅ Funcionalidades Implementadas até o momento
+## ✅ Funcionalidades Implementadas
 
 - Cadastro e gerenciamento de Usuários
 - Cadastro e listagem de Ideias
@@ -70,6 +70,3 @@ Usuário: 1 / Senha: administrador
 Usuário: 10 / Senha: voluntario
 #### Externo
 Usuário: 100 / Senha: externo
-
-## Disclaimer
-Esse projeto se trata de uma versão parcial que ainda está em desenvolvimento, em caso de mal funcionamento ou bugs na execução, aguarde atualização para a entrega do projeto final.
