@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import Ideia.Ideia;
 /*
  *
- * @author Matheus
+ * @author Leonardo
  * 
  */
 public class DAOExterno {

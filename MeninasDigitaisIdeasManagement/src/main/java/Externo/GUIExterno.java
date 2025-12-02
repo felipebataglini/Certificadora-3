@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Felipe
+ * @author Leonardo
  */
 public class GUIExterno extends javax.swing.JFrame {
 
