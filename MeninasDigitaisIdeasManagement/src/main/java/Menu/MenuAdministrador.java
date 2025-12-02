@@ -5,6 +5,7 @@
 package Menu;
 
 import Administrador.GerenciadorAdministrador;
+import Externo.GerenciadorExterno;
 import Voluntario.GerenciadorVoluntario;
 import Ideia.GerenciadorIdeia;
 import java.awt.event.ActionEvent;
@@ -43,7 +44,7 @@ public class MenuAdministrador implements ActionListener{
                 
                 
             case "externo":
-                //new GerenciadorExterno();
+                new GerenciadorExterno();
                 break;
         }
     }

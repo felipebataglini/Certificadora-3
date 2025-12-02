@@ -6,6 +6,7 @@ package Login;
 
 import Menu.MenuAdministrador;
 import Menu.MenuVoluntario;
+import Menu.MenuExterno;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -47,7 +48,7 @@ public class GerenciadorLogin implements ActionListener{
                         break;
                     case 3:
                         System.out.println("Usuário externo logado!");
-                        //new MenuExterno();
+                        new MenuExterno();
                         break;
                     case 0:
                         JOptionPane.showMessageDialog(null, "Usuário ou senha não encontrado", "Aviso", JOptionPane.ERROR_MESSAGE);

@@ -5,9 +5,7 @@
 package Menu;
 
 
-import Externo.GerenciadorExterno;
 import Ideia.GerenciadorIdeia;
-import Voluntario.GerenciadorVoluntario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -16,12 +14,12 @@ import javax.swing.JButton;
  *
  * @author Felipe
  */
-public class MenuVoluntario implements ActionListener{
-    private GUIMenuVoluntario guimenuvoluntario;
+public class MenuExterno implements ActionListener{
+    private GUIMenuExterno guimenuexterno;
     
-    public MenuVoluntario(){
-        guimenuvoluntario = new GUIMenuVoluntario();
-        guimenuvoluntario.addListener(this);
+    public MenuExterno(){
+        guimenuexterno = new GUIMenuExterno();
+        guimenuexterno.addListener(this);
     }
 
     @Override
@@ -32,15 +30,6 @@ public class MenuVoluntario implements ActionListener{
         switch(opc){
             case "ideia":
                 new GerenciadorIdeia();
-                break;
-                
-            case "voluntario":
-                new GerenciadorVoluntario();
-                break;
-                
-                
-            case "externo":
-                new GerenciadorExterno();
                 break;
         }
     }

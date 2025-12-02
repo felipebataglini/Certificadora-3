@@ -9,44 +9,92 @@ package Ideia;
  * @author Stefano
  */
 public class Ideia {
-private int idIdeia;
-    private String titulo;
-    private String descricao;
-    private String autor; 
-    private String status; // Pendente, Aprovada, Reprovada
-    public int SGAprovado; //Quantidade de sugestão de ideia aprovada
-    public int SGReprovado; //Quantidade de sugestão de ideia reprovada
+    private int ideId;
+    private String ideTitulo;
+    private String ideConteudo;
+    private String ideStatus; // Pendente, Aprovada, Reprovada
+    private Integer volId; // id do voluntário (nullable)
+    private Integer admId; // id do administrador (nullable)
+    private Integer extId; // id do externo (nullable)
 
-    public Ideia(String titulo, String descricao, String autor) {
-        this.titulo = titulo;
-        this.descricao = descricao;
-        this.autor = autor;
-        this.status = "Pendente";
-        this.SGAprovado = 0;
-        this.SGReprovado = 0;
+    public Ideia() {
+        this.ideStatus = "Pendente";
     }
 
-    // Getters e Setters
-    public int getIdIdeia() { return idIdeia; }
-    public void setIdIdeia(int idIdeia) { this.idIdeia = idIdeia; }
+    public Ideia(String ideTitulo, String ideConteudo) {
+        this.ideTitulo = ideTitulo;
+        this.ideConteudo = ideConteudo;
+        this.ideStatus = "Pendente";
+    }
 
-    public String getTitulo() { return titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
+    // Getters e Setters (correspondem às colunas do banco)
+    public int getIdeId() {
+        return ideId;
+    }
 
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
+    public void setIdeId(int ideId) {
+        this.ideId = ideId;
+    }
 
-    public String getAutor() { return autor; }
-    public void setAutor(String autor) { this.autor = autor; }
+    public String getIdeTitulo() {
+        return ideTitulo;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status;}
+    public void setIdeTitulo(String ideTitulo) {
+        this.ideTitulo = ideTitulo;
+    }
 
-    int getSGAprovado() { return SGAprovado;}
-    public void setSGAprovado(int SGAprovado) {this.SGAprovado = SGAprovado;}
-    
-    int getSGReprovado() { return SGReprovado;}
-    public void setSGReprovado(int SGReprovado) {this.SGReprovado = SGReprovado;}
+    public String getIdeConteudo() {
+        return ideConteudo;
+    }
 
+    public void setIdeConteudo(String ideConteudo) {
+        this.ideConteudo = ideConteudo;
+    }
+
+    public String getIdeStatus() {
+        return ideStatus;
+    }
+
+    public void setIdeStatus(String ideStatus) {
+        this.ideStatus = ideStatus;
+    }
+
+    public Integer getVolId() {
+        return volId;
+    }
+
+    public void setVolId(Integer volId) {
+        this.volId = volId;
+    }
+
+    public Integer getAdmId() {
+        return admId;
+    }
+
+    public void setAdmId(Integer admId) {
+        this.admId = admId;
+    }
+
+    public Integer getExtId() {
+        return extId;
+    }
+
+    public void setExtId(Integer extId) {
+        this.extId = extId;
+    }
+
+    @Override
+    public String toString() {
+        return "Ideia{" +
+                "ideId=" + ideId +
+                ", ideTitulo='" + ideTitulo + '\'' +
+                ", ideConteudo='" + ideConteudo + '\'' +
+                ", ideStatus='" + ideStatus + '\'' +
+                ", volId=" + volId +
+                ", admId=" + admId +
+                ", extId=" + extId +
+                '}';
+    }
 }
 

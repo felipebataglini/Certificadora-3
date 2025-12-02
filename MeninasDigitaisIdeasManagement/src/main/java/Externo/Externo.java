@@ -4,10 +4,25 @@
  */
 package Externo;
 
+import Usuario.Usuario;
 /**
  *
- * @author Felipe
+ * @author Leonardo
  */
-public class Externo {
+public class Externo extends Usuario {
+    private int idexterno;
+    private String senha;
     
+        public String getSenha() {
+        return senha;
+    }
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    public int getIdexterno() {
+        return idexterno;
+    }
+    public void setIdexterno(int idexterno) {
+        this.idexterno = idexterno;
+    }
 }

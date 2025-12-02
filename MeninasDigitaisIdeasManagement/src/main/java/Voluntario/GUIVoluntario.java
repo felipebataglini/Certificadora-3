@@ -80,6 +80,7 @@ public class GUIVoluntario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jPanel1 = new javax.swing.JPanel();
         JBTcadastrar = new javax.swing.JButton();
         JBTdeletar = new javax.swing.JButton();
@@ -102,6 +103,9 @@ public class GUIVoluntario extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         JTFtelefone = new javax.swing.JTextField();
         JLtelefone = new javax.swing.JLabel();
+
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Voluntário");
@@ -135,6 +139,7 @@ public class GUIVoluntario extends javax.swing.JFrame {
         JBTalterar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
         JBTalterar.setForeground(new java.awt.Color(102, 0, 102));
         JBTalterar.setText("Alterar");
+        JBTalterar.setName("alterar"); // NOI18N
         JBTalterar.setName("alterar");
         JBTalterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -428,6 +433,7 @@ public class GUIVoluntario extends javax.swing.JFrame {
     private javax.swing.JTextField JTFtelefone;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables

@@ -40,6 +40,11 @@ public class GerenciadorAdministrador implements ActionListener {
                 daoadministrador.Remove(idAdm);
                 guiadministrador.limpar();
                 break;
+            case "alterar":
+                a = guiadministrador.getAdministrador();
+                daoadministrador.Update(a);
+                guiadministrador.limpar();
+                break;
             case "mostrar":
                 guiadministrador.consultar();
                 break;

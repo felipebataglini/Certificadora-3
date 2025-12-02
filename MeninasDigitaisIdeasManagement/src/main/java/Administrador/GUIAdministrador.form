@@ -231,6 +231,7 @@
               <Color blue="66" green="0" red="66" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Alterar"/>
+            <Property name="name" type="java.lang.String" value="alterar" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBTalterarActionPerformed"/>

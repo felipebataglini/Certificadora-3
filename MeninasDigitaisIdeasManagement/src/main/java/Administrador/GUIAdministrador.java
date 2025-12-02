@@ -135,6 +135,7 @@ public class GUIAdministrador extends javax.swing.JFrame {
         JBTalterar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
         JBTalterar.setForeground(new java.awt.Color(102, 0, 102));
         JBTalterar.setText("Alterar");
+        JBTalterar.setName("alterar"); // NOI18N
         JBTalterar.setName("alterar");
         JBTalterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -22,7 +22,7 @@ public class DAOVoluntario {
     }
     
     public void Create(Voluntario v){
-        String sql = "INSERT INTO voluntario(vol_id, vol_cpf, vol_nome, vol_telefone, vol_email, vol_senha) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO voluntario(vol_id, vol_cpf, vol_nome, vol_telefone, vol_email, vol_senha) VALUES(?,?,?,?,?,?)";
         try{
             PreparedStatement stmt = link.prepareStatement(sql);
             stmt.setInt(1,v.getIdvoluntario());

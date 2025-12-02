@@ -4,6 +4,10 @@
  */
 package Externo;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Felipe
@@ -15,8 +19,53 @@ public class GUIExterno extends javax.swing.JFrame {
      */
     public GUIExterno() {
         initComponents();
+        setVisible(true);
+    }
+    public void addListener(GerenciadorExterno ex) {
+        JBTcadastrar.addActionListener(ex);
+        JBTdeletar.addActionListener(ex);
+        JBTalterar.addActionListener(ex);
+        JBTconsultar.addActionListener(ex);
+    }
+    
+    public int getID() {
+        return Integer.parseInt(JTFid.getText());
+    }
+    
+    
+    public Externo getExterno() {
+        Externo ex = new Externo();
+        ex.setIdexterno(Integer.parseInt(JTFid.getText()));
+        ex.setNome(JTFnome.getText());
+        ex.setEmail(JTFemail.getText());
+        ex.setSenha(JTFsenha.getText());
+        return ex;
+    }
+    
+    public void limpar() {
+        JTFid.setText("");
+        JTFnome.setText("");
+        JTFemail.setText("");
+        JTFsenha.setText("");
     }
 
+    public void consultar() {
+        try {
+            DAOExterno objexterno = new DAOExterno();
+            DefaultTableModel model = (DefaultTableModel) JTBcliente.getModel();
+            ArrayList<Externo> lista = objexterno.Display();
+            model.setRowCount(0);
+            for (int num = 0; num < lista.size(); num++) {
+                model.addRow(new Object[]{
+                    lista.get(num).getIdexterno(),
+                    lista.get(num).getNome(),
+                    lista.get(num).getEmail()
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e, "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +75,261 @@ public class GUIExterno extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        JBTcadastrar = new javax.swing.JButton();
+        JBTdeletar = new javax.swing.JButton();
+        JBTalterar = new javax.swing.JButton();
+        JLtitulo = new javax.swing.JLabel();
+        JLid = new javax.swing.JLabel();
+        JBTconsultar = new javax.swing.JButton();
+        JLnome = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        JTBcliente = new javax.swing.JTable();
+        JLemail = new javax.swing.JLabel();
+        JTFid = new javax.swing.JTextField();
+        JTFnome = new javax.swing.JTextField();
+        JTFemail = new javax.swing.JTextField();
+        JTFsenha = new javax.swing.JTextField();
+        JLemail1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setToolTipText("");
+
+        JBTcadastrar.setBackground(new java.awt.Color(247, 255, 247));
+        JBTcadastrar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JBTcadastrar.setForeground(new java.awt.Color(102, 0, 102));
+        JBTcadastrar.setText("Cadastrar");
+        JBTcadastrar.setName("cadastrar"); // NOI18N
+        JBTcadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTcadastrarActionPerformed(evt);
+            }
+        });
+
+        JBTdeletar.setBackground(new java.awt.Color(247, 255, 247));
+        JBTdeletar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JBTdeletar.setForeground(new java.awt.Color(102, 0, 102));
+        JBTdeletar.setText("Deletar");
+        JBTdeletar.setName("deletar"); // NOI18N
+        JBTdeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTdeletarActionPerformed(evt);
+            }
+        });
+
+        JBTalterar.setBackground(new java.awt.Color(247, 255, 247));
+        JBTalterar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JBTalterar.setForeground(new java.awt.Color(102, 0, 102));
+        JBTalterar.setText("Alterar");
+        JBTalterar.setName("alterar"); // NOI18N
+        JBTalterar.setName("alterar");
+        JBTalterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTalterarActionPerformed(evt);
+            }
+        });
+
+        JLtitulo.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
+        JLtitulo.setForeground(new java.awt.Color(102, 0, 102));
+        JLtitulo.setText("Gerenciamento de Usuários Externos");
+
+        JLid.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        JLid.setForeground(new java.awt.Color(102, 0, 102));
+        JLid.setText("ID Externo:");
+
+        JBTconsultar.setBackground(new java.awt.Color(247, 255, 247));
+        JBTconsultar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JBTconsultar.setForeground(new java.awt.Color(102, 0, 102));
+        JBTconsultar.setText("Consultar");
+        JBTconsultar.setName("mostrar"); // NOI18N
+        JBTconsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTconsultarActionPerformed(evt);
+            }
+        });
+
+        JLnome.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        JLnome.setForeground(new java.awt.Color(102, 0, 102));
+        JLnome.setText("Nome:");
+
+        JTBcliente.setBackground(new java.awt.Color(247, 255, 247));
+        JTBcliente.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
+        JTBcliente.setForeground(new java.awt.Color(102, 0, 102));
+        JTBcliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "E-Mail"
+            }
+        ));
+        JTBcliente.setSelectionForeground(new java.awt.Color(36, 123, 160));
+        JTBcliente.setShowGrid(true);
+        jScrollPane1.setViewportView(JTBcliente);
+
+        JLemail.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        JLemail.setForeground(new java.awt.Color(102, 0, 102));
+        JLemail.setText("E-Mail:");
+
+        JTFid.setName("JTFid"); // NOI18N
+        JTFid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTFidActionPerformed(evt);
+            }
+        });
+
+        JLemail1.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        JLemail1.setForeground(new java.awt.Color(102, 0, 102));
+        JLemail1.setText("Senha:");
+
+        jSeparator1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        jSeparator2.setForeground(new java.awt.Color(102, 0, 102));
+
+        jLabel5.setBackground(new java.awt.Color(255, 204, 204));
+        jLabel5.setFont(new java.awt.Font("French Script MT", 3, 36)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("MDIM");
+        jLabel5.setMinimumSize(new java.awt.Dimension(146, 50));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(58, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(JLtitulo)
+                        .addGap(63, 63, 63))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(JLnome)
+                            .addComponent(JLid)
+                            .addComponent(JLemail)
+                            .addComponent(JLemail1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(JTFnome, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                                .addComponent(JTFid))
+                            .addComponent(JTFsenha, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JTFemail, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(131, 131, 131))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(JBTcadastrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBTdeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBTalterar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBTconsultar)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(JLtitulo)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(JLid))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JTFid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JLnome)
+                    .addComponent(JTFnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(JLemail)
+                    .addComponent(JTFemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JLemail1)
+                    .addComponent(JTFsenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JBTcadastrar)
+                    .addComponent(JBTdeletar)
+                    .addComponent(JBTalterar)
+                    .addComponent(JBTconsultar))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(130, 130, 130))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void JBTcadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTcadastrarActionPerformed
+
+    }//GEN-LAST:event_JBTcadastrarActionPerformed
+
+    private void JBTalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTalterarActionPerformed
+
+    }//GEN-LAST:event_JBTalterarActionPerformed
+
+    private void JBTconsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTconsultarActionPerformed
+
+    }//GEN-LAST:event_JBTconsultarActionPerformed
+
+    private void JTFidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTFidActionPerformed
+
+    private void JBTdeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTdeletarActionPerformed
+
+    }//GEN-LAST:event_JBTdeletarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +367,24 @@ public class GUIExterno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBTalterar;
+    private javax.swing.JButton JBTcadastrar;
+    private javax.swing.JButton JBTconsultar;
+    private javax.swing.JButton JBTdeletar;
+    private javax.swing.JLabel JLemail;
+    private javax.swing.JLabel JLemail1;
+    private javax.swing.JLabel JLid;
+    private javax.swing.JLabel JLnome;
+    private javax.swing.JLabel JLtitulo;
+    private javax.swing.JTable JTBcliente;
+    private javax.swing.JTextField JTFemail;
+    private javax.swing.JTextField JTFid;
+    private javax.swing.JTextField JTFnome;
+    private javax.swing.JTextField JTFsenha;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     // End of variables declaration//GEN-END:variables
 }

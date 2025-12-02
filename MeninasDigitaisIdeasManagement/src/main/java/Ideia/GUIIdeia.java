@@ -4,6 +4,8 @@
  */
 package Ideia;
 import java.util.logging.Logger;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,6 +18,7 @@ public class GUIIdeia extends javax.swing.JFrame {
     public GUIIdeia() {
         initComponents();
         setVisible(true);
+        consultar();
     }
 
     public void addListener(GerenciadorIdeia gi) {
@@ -27,16 +30,62 @@ public class GUIIdeia extends javax.swing.JFrame {
     public Ideia getIdeia(String autor) {
         String titulo = JTFtitulo.getText();
         String descricao = JTFdescricao.getText();
-        return new Ideia(titulo, descricao, autor);
+        Ideia i = new Ideia(titulo, descricao);
+        // se uma linha estiver selecionada, usa o id para alteração
+        int sel = jTable1.getSelectedRow();
+        if (sel != -1) {
+            Object val = jTable1.getModel().getValueAt(sel, 0); // coluna 0 = ide_id (oculta)
+            if (val instanceof Integer) i.setIdeId((Integer) val);
+            else if (val instanceof Number) i.setIdeId(((Number) val).intValue());
+            else {
+                try { i.setIdeId(Integer.parseInt(String.valueOf(val))); } catch (Exception ex) { /* ignore */ }
+            }
+        }
+        return i;
     }
                                     
                                          
+
     // Botão Limpar
     public void limpar() {                                         
             JTFtitulo.setText("");
             JTFdescricao.setText("");
+            JTFdescricao1.setText("");
+            jTable1.clearSelection();
     } 
     
+    // Carrega as ideias do banco na tabela
+public void consultar() {
+    try {
+        DAOIdeia dao = new DAOIdeia();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        java.util.List<Ideia> lista = dao.listar();
+        model.setRowCount(0);
+        for (Ideia it : lista) {
+            String autor = "";
+            if (it.getAdmId() != null) autor = "Administrador:" + it.getAdmId();
+            else if (it.getVolId() != null) autor = "Voluntário:" + it.getVolId();
+            else if (it.getExtId() != null) autor = "Externo:" + it.getExtId();
+            model.addRow(new Object[]{
+                it.getIdeTitulo(),
+                it.getIdeConteudo(),
+                autor
+            });
+        }
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(null, e, "Erro!", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    // Retorna id da ideia selecionada (0 se nada selecionado)
+    public int getIdIdeia() {
+        int sel = jTable1.getSelectedRow();
+        if (sel == -1) return 0;
+        Object val = jTable1.getModel().getValueAt(sel, 0);
+        if (val instanceof Integer) return (Integer) val;
+        if (val instanceof Number) return ((Number) val).intValue();
+        try { return Integer.parseInt(String.valueOf(val)); } catch (Exception ex) { return 0; }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,10 +107,15 @@ public class GUIIdeia extends javax.swing.JFrame {
         JLtitulo1 = new javax.swing.JLabel();
         JTFtitulo = new javax.swing.JTextField();
         JTFdescricao = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        JLnome1 = new javax.swing.JLabel();
+        JTFdescricao1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         JBTenviar.setBackground(new java.awt.Color(255, 102, 102));
         JBTenviar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
@@ -78,7 +132,7 @@ public class GUIIdeia extends javax.swing.JFrame {
         JBTlimpar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
         JBTlimpar.setForeground(new java.awt.Color(255, 255, 255));
         JBTlimpar.setText("Limpar");
-        JBTlimpar.setName("deletar"); // NOI18N
+        JBTlimpar.setName("limpar"); // NOI18N
         JBTlimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBTlimparActionPerformed(evt);
@@ -122,6 +176,38 @@ public class GUIIdeia extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Titulo", "Descrição", "Autor"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        JLnome1.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
+        JLnome1.setForeground(new java.awt.Color(102, 0, 102));
+        JLnome1.setText("Número de Cadastro");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -130,8 +216,20 @@ public class GUIIdeia extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(152, 152, 152)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(95, 95, 95)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JLnome)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(JTFtitulo, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(JTFdescricao, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(JBTlimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                                    .addComponent(JBTenviar))
+                                .addComponent(JLnome1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(JTFdescricao1, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(188, 188, 188)
                         .addComponent(JLtitulo1))
@@ -139,24 +237,11 @@ public class GUIIdeia extends javax.swing.JFrame {
                         .addGap(96, 96, 96)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(JLid)
-                            .addComponent(JLtitulo))))
-                .addContainerGap(116, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JLtitulo)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(JLnome)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(JBTlimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(JBTenviar)
-                                .addGap(11, 11, 11))
-                            .addComponent(JTFdescricao, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JTFtitulo))
-                        .addGap(81, 81, 81))))
+                        .addGap(91, 91, 91)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,45 +252,57 @@ public class GUIIdeia extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JLtitulo1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(JLtitulo, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(JLid, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(JLtitulo, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(JLid, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(JTFtitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(13, 13, 13)
+                        .addComponent(JLnome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JTFdescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(JLnome1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JTFdescricao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(JTFtitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(13, 13, 13)
-                .addComponent(JLnome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(JTFdescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JBTlimpar)
-                    .addComponent(JBTenviar))
-                .addGap(156, 156, 156))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JBTenviar)
+                    .addComponent(JBTlimpar))
+                .addGap(63, 63, 63))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBTlimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTlimparActionPerformed
-        // TODO add your handling code here:
+        // deixado vazio pois Gerenciador trata ações
     }//GEN-LAST:event_JBTlimparActionPerformed
 
     private void JBTenviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTenviarActionPerformed
-        // TODO add your handling code here:
+        // deixado vazio pois Gerenciador trata ações
     }//GEN-LAST:event_JBTenviarActionPerformed
 
     private void JTFtituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFtituloActionPerformed
@@ -215,6 +312,10 @@ public class GUIIdeia extends javax.swing.JFrame {
     private void JTFdescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFdescricaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JTFdescricaoActionPerformed
+
+    private void JTFcodigoAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFcodigoAutorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JTFcodigoAutorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,23 +347,31 @@ public class GUIIdeia extends javax.swing.JFrame {
     private javax.swing.JButton JBTlimpar;
     private javax.swing.JLabel JLid;
     private javax.swing.JLabel JLnome;
+    private javax.swing.JLabel JLnome1;
     private javax.swing.JLabel JLtitulo;
     private javax.swing.JLabel JLtitulo1;
     private javax.swing.JTextField JTFdescricao;
+    private javax.swing.JTextField JTFdescricao1;
     private javax.swing.JTextField JTFtitulo;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-// Retorna o botão Enviar
-public javax.swing.JButton JBTenviar() {
-    return JBTenviar;
-}
+    // Método para obter código do autor
+    public String getCodigoAutor() {
+        return JTFdescricao1.getText();
+    }
 
-// Retorna o botão Limpar
-public javax.swing.JButton JBTlimpar() {
-    return JBTlimpar;
-}
+    // Retorna o botão Enviar
+    public javax.swing.JButton JBTenviar() {
+        return JBTenviar;
+    }
 
+    // Retorna o botão Limpar
+    public javax.swing.JButton JBTlimpar() {
+        return JBTlimpar;
+    }
 }
